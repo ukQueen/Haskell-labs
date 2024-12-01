@@ -86,7 +86,7 @@ main = do
 
             -- let img'' = generateImage (\_ _ -> PixelRGB8 255 0 0) 500 500
             -- -- Сохраняем его как BMP
-            -- saveBmpImage "app/output.bmp" (ImageRGB8 img'')
+            saveBmpImage filePath dynImg'
             putStrLn "BMP изображение успешно сохранено!"
 
 

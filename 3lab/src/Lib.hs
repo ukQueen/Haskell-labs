@@ -9,6 +9,9 @@ import Codec.Picture
 import qualified Data.ByteString as B
 import qualified Data.ByteString.Char8 as BC
 import Data.Char (digitToInt)
+import qualified Data.Vector as V
+import Data.Vector (Vector)
+
 
 -- убирает дубликаты в тексте
 removeDublicates :: String -> String  
@@ -46,44 +49,44 @@ encoding key text =
     in convertText text alphabet newAlphabet
 
 -- число в двоичную строку
-toBinary :: Int -> String 
-toBinary n = replicate (8 - length bin) '0' ++ bin
+toBinary :: Int -> Vector Char 
+toBinary n = V.fromList (replicate (8 - length bin) '0') V.++ V.fromList bin
     where bin = showIntAtBase 2 intToDigit n ""
 
 
 -- код из ASCII символа в двоичную строку
-charToBinary :: Char -> String
+charToBinary :: Char -> Vector Char
 charToBinary c = toBinary (ord c)
 
 -- текст в двоичный код
-binaryEncoding :: String -> String
-binaryEncoding [] = []
-binaryEncoding (c:cs) = charToBinary c ++ binaryEncoding cs
+binaryEncoding :: String -> Vector Char
+binaryEncoding [] = V.empty
+binaryEncoding (c:cs) = charToBinary c V.++ binaryEncoding cs
 
 -- пиксель в двоичный код
-pixelToBinary :: PixelRGB8 -> String
-pixelToBinary (PixelRGB8 r g b) = toBinary (fromIntegral r) ++ toBinary (fromIntegral g) ++ toBinary (fromIntegral b) 
+pixelToBinary :: PixelRGB8 -> Vector Char
+pixelToBinary (PixelRGB8 r g b) = toBinary (fromIntegral r) V.++ toBinary (fromIntegral g) V.++ toBinary (fromIntegral b) 
 
 -- изображение в двоичный код
-imageToBinary :: Image PixelRGB8 -> String
-imageToBinary img = concat [pixelToBinary (pixelAt img x y) | y <- [0..height-1], x <- [0..width-1]]
+imageToBinary :: Image PixelRGB8 -> Vector Char
+imageToBinary img = V.concat [pixelToBinary (pixelAt img x y) | y <- [0..height-1], x <- [0..width-1]]
     where 
         width = imageWidth img
         height = imageHeight img
     
 -- дополняет двоичную строку нулями до вводимого размера
-takeCurrentSize :: String -> Int -> String
+takeCurrentSize :: Vector Char -> Int -> Vector Char
 takeCurrentSize str size 
-    | length str < size = str ++ replicate (size - length str) '0'
-    | otherwise = take size str
+    | length str < size = str V.++ V.replicate (size - V.length str) '0'
+    | otherwise = V.take size str
 
 
 -- создает два списка на основе переданого: n первых элемента, список без первых n элементов 
-takeAndDrop :: Int -> [a] ->([a], [a])
-takeAndDrop n arr = (take n arr, drop n arr)
+takeAndDrop :: Int -> Vector Char ->(Vector Char, Vector Char)
+takeAndDrop n arr = (V.take n arr, V.drop n arr)
 
 -- двоичную строку преобразует в цвет (8 битов в r, g или b )
-binaryStringToColor :: String -> Word8
+binaryStringToColor :: Vector Char -> Word8
 binaryStringToColor str = fromIntegral $ foldl (\acc x -> acc * 2 + digitToInt x) 0 str
 
 -- делит на куски по n элементов массив arr 
@@ -92,28 +95,28 @@ chunksOf _ [] = []
 chunksOf n arr = take n arr : chunksOf n (drop n arr)
 
 -- двочиную строку превращает в изображение
--- binaryStringToImage :: String -> Int -> Int -> Image PixelRGB8
--- binaryStringToImage str width height = 
---     let size = height * width * 3 * 8
---         newStr = takeCurrentSize str size
---         pixelRenderer x y =
---             let index = (y * width + x) * 3 * 8
---                 r = binaryStringToColor (take 8 (drop index newStr))
---                 g = binaryStringToColor (take 8 (drop (index + 8) newStr))
---                 b = binaryStringToColor (take 8 (drop (index + 16) newStr))
-
---             in PixelRGB8 r g b
---     in generateImage pixelRenderer width height
-
-binaryStringToImage :: String -> Int -> Int -> Image PixelRGB8
-binaryStringToImage str width height =
+binaryStringToImage :: Vector Char -> Int -> Int -> Image PixelRGB8
+binaryStringToImage str width height = 
     let size = height * width * 3 * 8
         newStr = takeCurrentSize str size
-        precomputed = map binaryStringToColor (chunksOf 8 newStr)
         pixelRenderer x y =
-            let index = (y * width + x) * 3
-                r = precomputed !! index
-                g = precomputed !! (index + 1)
-                b = precomputed !! (index + 2)
+            let index = (y * width + x) * 3 * 8
+                r = binaryStringToColor (V.take 8 (V.drop index newStr))
+                g = binaryStringToColor (V.take 8 (V.drop (index + 8) newStr))
+                b = binaryStringToColor (V.take 8 (V.drop (index + 16) newStr))
+
             in PixelRGB8 r g b
     in generateImage pixelRenderer width height
+
+-- binaryStringToImage :: String -> Int -> Int -> Image PixelRGB8
+-- binaryStringToImage str width height =
+--     let size = height * width * 3 * 8
+--         newStr = takeCurrentSize str size
+--         precomputed = map binaryStringToColor (chunksOf 8 newStr)
+--         pixelRenderer x y =
+--             let index = (y * width + x) * 3
+--                 r = precomputed !! index
+--                 g = precomputed !! (index + 1)
+--                 b = precomputed !! (index + 2)
+--             in PixelRGB8 r g b
+--     in generateImage pixelRenderer width height

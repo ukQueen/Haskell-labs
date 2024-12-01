@@ -25,6 +25,7 @@ dependencies:
 - bytestring
 - filepath 
 - deepseq
+- vector
 
 ghc-options:
 - -Wall
