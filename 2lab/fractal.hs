@@ -27,12 +27,19 @@ groupByLevels n =
       nextLines = concatMap nextLevel (last prevLevels)
   in  prevLevels ++ [nextLines] 
 
-printLn :: Show a => [[a]]->IO()
-printLn = mapM_(putStrLn.show)
+showLineList :: [Line] -> String
+showLineList lines = 
+  "[" ++ concatMap (\((x1, y1), (x2, y2)) -> "((" ++ show x1 ++ "," ++ show y1 ++ "),(" ++ show x2 ++ "," ++ show y2 ++ ")),") lines ++ "]\n"
+
+
+printLn :: [[Line]] -> String
+printLn a = "[\n" ++ concatMap showLineList a ++ "]"
+
 
 main :: IO()
 main = do
   putStrLn "Введите глубину фрактала:"
   input <- getLine
   let steps = read input :: Int
-  printLn (groupByLevels steps)
+  let result = printLn (groupByLevels steps)
+  putStrLn result
