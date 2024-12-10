@@ -1,5 +1,5 @@
 module Lib
-    ( encoding, decoding, binaryEncoding, binaryDecoding, imageToBinary, binaryStringToImage,  getKey, getKeyBits, encrypting, decrypting
+    ( encoding, decoding, binaryEncoding, binaryDecoding, imageToBinary, binaryStringToImage,  getKey, getKeyBits, encrypting, decrypting, encryptingCoordinates
     ) where
 
 import Numeric (showIntAtBase)
@@ -12,9 +12,6 @@ import qualified Data.Vector.Mutable as MV
 import Data.Vector (Vector)
 import Data.Char (chr)
 import Control.Monad.ST
-
-
-
 
 
 -- убирает дубликаты в тексте
@@ -145,48 +142,6 @@ getKey :: String -> String
 getKey path = 
     takeWhile (/= '.') (reverse (takeWhile (\c -> c /= '\\' && c /= '/') (reverse path)))
 
--- encrypting :: Vector Char -> Vector Char -> Int -> Vector Char
--- encrypting img str count
---     | V.null img = V.empty
---     | otherwise =  
---         let currentStr = takeCurrentSize str (V.length img `div` 8 * count)
---             img' = V.drop 8 img
---             currentStr' = V.drop count currentStr
---             prefix = V.take (8 - count) img
---             suffix = V.take count currentStr
---             rest = encrypting img' currentStr' count
---         -- in V.take (8 - count) img V.++ V.take count currentStr V.++ encrypting img' currentStr' count 
---         in V.concat[prefix, suffix, rest]
-
--- encrypting :: Vector Char -> Vector Char -> Int -> Vector Char
--- encrypting img str count = runST $ do
---     let indx = 0
---         len = length img
---         str' = takeCurrentSize str (len `div` 8 * count)
---     result <- MV.new len 
---     let go indx
---             | indx * 8 >= len  = return ()
---             | otherwise = do
---                 let elem0 = if count == 8 then str' V.! (indx * count)  else img V.! (indx * 8)
---                     elem1 = if count >= 7 then str' V.! (indx * count + 1 - (8 - count)) else img V.! (indx * 8 + 1)
---                     elem2 = if count >= 6 then str' V.! (indx * count + 2 - (8 - count)) else img V.! (indx * 8 + 2)
---                     elem3 = if count >= 5 then str' V.! (indx * count + 3 - (8 - count)) else img V.! (indx * 8 + 3)
---                     elem4 = if count >= 4 then str' V.! (indx * count + 4 - (8 - count)) else img V.! (indx * 8 + 4)
---                     elem5 = if count >= 3 then str' V.! (indx * count + 5 - (8 - count)) else img V.! (indx * 8 + 5)
---                     elem6 = if count >= 2 then str' V.! (indx * count + 6 - (8 - count)) else img V.! (indx * 8 + 6)
---                     elem7 = if count >= 1 then str' V.! (indx * count + 7 - (8 - count)) else img V.! (indx * 8 + 7)
---                 MV.write result (indx * 8) elem0
---                 MV.write result (indx * 8 + 1) elem1
---                 MV.write result (indx * 8 + 2) elem2
---                 MV.write result (indx * 8 + 3) elem3
---                 MV.write result (indx * 8 + 4) elem4
---                 MV.write result (indx * 8 + 5) elem5
---                 MV.write result (indx * 8 + 6) elem6
---                 MV.write result (indx * 8 + 7) elem7
---                 go (indx + 1)
---     go 0
---     V.freeze result
-
 
 
 encrypting :: Vector Char -> Vector Char -> Int -> Vector Char
@@ -206,6 +161,43 @@ encrypting img str count = runST $ do
                 go (indx + 1)
     go 0
     V.freeze result
+
+
+encryptingCoordinates :: Vector Char -> Vector Char -> Int -> Int -> Int -> Int -> Int -> Vector Char
+encryptingCoordinates img str count x y width height = runST $ do
+    let indx = 0
+        len = length img
+        str' = takeCurrentSize str (len `div` 8 * count)
+        startIndex = y * width * 3 + x * 3
+    result <- MV.new (len)
+    
+    let go indx
+            | indx < startIndex  = do
+                V.forM_ (V.fromList [0..7]) $ \i -> do
+                    let elem = img V.! (indx * 8 + i)
+                    MV.write result (indx * 8 + i) elem
+                go (indx + 1)
+            | indx * 8 >= len = return ()
+            | indx > (startIndex + (length str) `div` count) = do
+                V.forM_ (V.fromList [0..7]) $ \i -> do
+                    let elem = img V.! (indx * 8 + i)
+                    MV.write result (indx * 8 + i) elem
+                go (indx + 1)
+            | otherwise = do
+                V.forM_ (V.fromList [0..7]) $ \i -> do
+                    let elem = if count >= (8 - i)
+                               then invertBit(str' V.! ((indx - (startIndex)) * count + i - (8 - count)))
+                               else invertBit(img V.! (indx * 8 + i))
+                    MV.write result (indx * 8 + i) elem
+                go (indx + 1)
+    go 0
+    V.freeze result
+
+
+invertBit :: Char -> Char
+invertBit '0' = '1'
+invertBit '1' = '0'
+invertBit c = c
 
 
 getKeyBits :: String -> (String, Int)
