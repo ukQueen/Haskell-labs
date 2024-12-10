@@ -1,0 +1,607 @@
+\documentclass[10pt,a4paper,final]{article} %draft
+
+\usepackage[english, russian]{babel}
+
+\usepackage{geometry}
+%\usepackage[a4paper,left=2cm,right=2cm,top=2cm,bottom=2cm,bindingo ffset=0cm]{geometry}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage[final]{pdfpages}
+
+\usepackage{textcomp,enumitem}
+
+\usepackage{amsmath,amsthm,amssymb}
+
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{adjustbox}
+
+\usepackage{wrapfig}
+
+
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{caption}
+
+\definecolor{codegray}{rgb}{0.95,0.95,0.95}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{codegreen}{rgb}{0,0.5,0} % зеленый цвет
+\definecolor{codeblue}{rgb}{0,0,0.5} % синий цвет
+\definecolor{codestring}{rgb}{0.64,0.08,0.08} % цвет строк
+
+
+\lstset{
+	language=haskell,
+	extendedchars=true,
+	literate=
+	{а}{{\selectfont\char224}}1
+	{б}{{\selectfont\char225}}1
+	{в}{{\selectfont\char226}}1
+	{г}{{\selectfont\char227}}1
+	{д}{{\selectfont\char228}}1
+	{е}{{\selectfont\char229}}1
+	{ж}{{\selectfont\char230}}1
+	{з}{{\selectfont\char231}}1
+	{и}{{\selectfont\char232}}1
+	{й}{{\selectfont\char233}}1
+	{к}{{\selectfont\char234}}1
+	{л}{{\selectfont\char235}}1
+	{м}{{\selectfont\char236}}1
+	{н}{{\selectfont\char237}}1
+	{о}{{\selectfont\char238}}1
+	{п}{{\selectfont\char239}}1
+	{р}{{\selectfont\char240}}1
+	{с}{{\selectfont\char241}}1
+	{т}{{\selectfont\char242}}1
+	{у}{{\selectfont\char243}}1
+	{ф}{{\selectfont\char244}}1
+	{х}{{\selectfont\char245}}1
+	{ц}{{\selectfont\char246}}1
+	{ч}{{\selectfont\char247}}1
+	{ш}{{\selectfont\char248}}1
+	{щ}{{\selectfont\char249}}1
+	{ъ}{{\selectfont\char250}}1
+	{ы}{{\selectfont\char251}}1
+	{ь}{{\selectfont\char252}}1
+	{э}{{\selectfont\char253}}1
+	{ю}{{\selectfont\char254}}1
+	{я}{{\selectfont\char255}}1
+	{А}{{\selectfont\char192}}1
+	{Б}{{\selectfont\char193}}1
+	{В}{{\selectfont\char194}}1
+	{Г}{{\selectfont\char195}}1
+	{Д}{{\selectfont\char196}}1
+	{Е}{{\selectfont\char197}}1
+	{Ж}{{\selectfont\char198}}1
+	{З}{{\selectfont\char199}}1
+	{И}{{\selectfont\char200}}1
+	{Й}{{\selectfont\char201}}1
+	{К}{{\selectfont\char202}}1
+	{Л}{{\selectfont\char203}}1
+	{М}{{\selectfont\char204}}1
+	{Н}{{\selectfont\char205}}1
+	{О}{{\selectfont\char206}}1
+	{П}{{\selectfont\char207}}1
+	{Р}{{\selectfont\char208}}1
+	{С}{{\selectfont\char209}}1
+	{Т}{{\selectfont\char210}}1
+	{У}{{\selectfont\char211}}1
+	{Ф}{{\selectfont\char212}}1
+	{Х}{{\selectfont\char213}}1
+	{Ц}{{\selectfont\char214}}1
+	{Ч}{{\selectfont\char215}}1
+	{Ш}{{\selectfont\char216}}1
+	{Щ}{{\selectfont\char217}}1
+	{Ъ}{{\selectfont\char218}}1
+	{Ы}{{\selectfont\char219}}1
+	{Ь}{{\selectfont\char220}}1
+	{Э}{{\selectfont\char221}}1
+	{Ю}{{\selectfont\char222}}1
+	{Я}{{\selectfont\char223}}1,
+	%	{|}{{\textbar}}1,
+	%	{||}{{\textbar\textbar}}1
+	%	{\&}{{\string&}}1
+	%	{==}{{\string==}}1
+	%	{\string\\}{{\string\\}}1,
+	numbers=left,
+	stepnumber=1,
+	firstnumber=1,
+	numberstyle=\tiny,
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,
+	breaklines=true,
+	postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}}, % Символ переноса строки
+	captionpos=b,
+	keepspaces=true,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	tabsize=2,
+	frame=single,
+	keywordstyle=\color{codeblue}, % ключевые слова
+	commentstyle=\color{codegreen}, % комментарии
+	stringstyle=\color{codestring}, % строки
+	%identifierstyle=\color{green}, % стиль для переменных
+	backgroundcolor=\color{codegray},
+}
+%\usepackage{fancyvrb}
+
+%\usepackage{fancyhdr}
+
+%\usepackage{upgreek}
+
+%\usepackage{tipa}
+
+%\usepackage{tikz}
+
+%\usepackage{graphicx}
+
+%\usepackage{pgfplots}
+
+\usepackage{indentfirst}
+
+%\usepackage{gensymb}
+
+%\usepackage{amssymb}
+
+%\usepackage{pdfpages}
+
+\usepackage[unicode, pdftex, colorlinks, urlcolor=blue]{hyperref}
+
+%\usepackage[T2A]{fontenc}
+
+
+\usepackage{tabularx}
+\usepackage{multirow}
+
+\usepackage{booktabs} % для стильных линий таблицы
+
+
+
+\usepackage{graphics}
+
+\linespread{1.5}
+
+\pagestyle{plain}
+
+%\usepackage{listings} 
+%\usepackage{moreverb} 
+
+%\setlist[enumerate,itemize]{leftmargin=1.2cm} %отступ в перечислениях
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	%allcolors=[RGB]{0 0 0}}
+	}
+	%\lstloadlanguages{ [LaTeX] TeX}
+	
+	\lstloadlanguages{ [LaTeX] TeX}
+	
+	
+	
+	\textheight=24cm 
+	\textwidth=16cm
+	\oddsidemargin=0pt 
+	\topmargin=-1.5cm
+	\parindent=24pt 
+	\parskip=0pt 
+	\tolerance=2000 
+	\flushbottom 
+	
+	%\usepackage[font=scriptsize]{caption}
+	\usepackage[labelsep=period]{caption}
+	
+	\begin{document}
+\thispagestyle{empty}
+
+\begin{center}
+	{\Large МИНОБРНАУКИ РОССИИ}\\
+	~\\
+	{\large ФЕДЕРАЛЬНОЕ ГОСУДАРСТВЕННОЕ БЮДЖЕТНОЕ ОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ ВЫСШЕГО ПРОФЕССИОНАЛЬНОГО ОБРАЗОВАНИЯ}\\
+	~\\
+	{\Large \bf <<САНКТ-ПЕТЕРБУРГСКИЙ ПОЛИТЕХНИЧЕСКИЙ УНИВЕРСИТЕТ ПЕТРА ВЕЛИКОГО>>}\\
+	~\\
+	{\large Институт компьютерных наук и кибербезопасности}\\
+	{\large Высшая школа технологий искусственного интеллекта}\\
+	{\large Направление 02.03.01 Математика и компьютерные науки}\\
+	~\\
+	~\\
+	~\\
+	~\\
+	{\Large \bf Отчет по практическому заданию №4}\\
+	{\Large по дисциплине <<Функциональное программирование>> }\\
+	~\\
+	~\\
+	
+	%{\Large }\\
+	%	{\Large \bf }\\ 	
+	
+	~\\
+	~\\
+	~\\
+	~\\
+	~\\
+	~\\
+	~\\
+	~\\
+	~\\
+	{\large Обучающийся: \underline{\hspace{3.5cm}} \qquad\qquad Гладков И.А.}\\
+	~\\
+	{\large Руководитель: \underline{\hspace{3.5cm}} \hspace{15mm} Моторин Д.Е.}\\
+	~\\
+	~\\
+\end{center}
+\begin{flushright}
+	
+	«\underline{\hspace{1cm}}»\underline{\hspace{3cm}}20\underline{\hspace{0.7cm}}г.
+\end{flushright}
+~\\
+\begin{center}
+	{\large Санкт-Петербург, 2024}
+\end{center}
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section* {Введение}
+\addcontentsline{toc}{section}{Введение}
+\par В данном практическом задании необходимо выполнить следующие задачи:
+\begin{enumerate}
+	\item Написать функцию логарифма \texttt{logBase :: Double -> Double -> Double}, которая принимает два числа: основание и аргумент, и возвращает логарифм аргумента по заданному основанию. Используя \texttt{QuickCheck}, проверьте следующие свойства:
+	\begin{enumerate}
+		\item Обратное свойство: \texttt{logBase b (b ** x) == х} для любого положительного \texttt{b} и \texttt{х}.
+		
+		﻿﻿﻿\item Свойство смены основания: \texttt{logBase a b == logBase c b / logBase с а} для любых положительных \texttt{а, b и с}, где \texttt{с} не равно 1.
+		﻿﻿﻿
+		\item Логарифм единицы: \texttt{logBase b 1 == 0} для любого положительного \texttt{b}.
+	\end{enumerate}
+	
+	\item Написать функцию matrixMultiply :: Num a => [[a]] -> [[a]] -> [[a]], которая
+	выполняет умножение двух матриц. Используя QuickCheck, проверьте следующие свойства:
+	\begin{enumerate}
+		\item ﻿﻿Ассоциативность: \texttt{(А *B) * С == А * (В * С)} для любых матриц \texttt{А, В и С} (при условии, что размеры матриц позволяют это умножение).
+		
+		\item ﻿﻿﻿Дистрибутивность:\texttt{А * (B + C) == А*В + А * С} для любых матриц \texttt{А, В и С}.
+		﻿﻿﻿\item Умножение на единичную матрицу:\texttt{ А * 1 == А}, где \texttt{I} — единичная матрица соответствующего размера.
+	\end{enumerate}
+\end{enumerate}
+
+
+Лабораторная работа выполнена на языке Haskell в текстовом редакторе Visual Studio Code 1.95.3.
+
+
+\section{Математическое описание}
+
+\textbf{QuickCheck} — это инструмент для автоматической проверки свойств программ. Он использует метод генерации тестов с последующей проверкой утверждений о программе с использованием случайных данных. QuickCheck позволяет описывать свойства функций в виде логических выражений, и затем автоматически проверять их с помощью случайных значений. 
+
+В Haskell для работы с QuickCheck есть несколько основных команд и функций, которые позволяют генерировать тесты и проверять свойства:
+
+\begin{itemize}
+	\item \textbf{ quickCheck:} Команда для запуска проверки свойства. Она принимает функцию с описанием свойства и автоматически генерирует случайные входные данные для тестирования.
+	\item\textbf{ Property:} Это тип, который представляет собой проверку логического свойства, которое может быть либо истинным, либо ложным, в зависимости от входных данных. Он часто используется с операторами, такими как ==>, чтобы описать свойства, которые должны выполняться при определённых условиях.
+\end{itemize}
+
+Для того чтобы QuickCheck мог генерировать случайные данные для тестов, необходимо определить, как создавать случайные значения для тех типов данных, которые используются в тестируемых функциях. Это делается через класс Arbitrary.
+\par \textbf{Arbitrary} — это класс типов, который предоставляет метод arbitrary, используемый для генерации случайных значений. Для каждого типа, для которого мы хотим генерировать случайные значения, нужно предоставить инстанс этого класса.
+
+\newpage
+\section{Особенности реализации}
+\subsection{Функция \texttt{logBase}}
+
+\texttt{logBase} -- функция, принимающая два числа: основание и аргумент, и возвращающая логарифм аргумента по заданному основанию.
+Функция представлена в листинге 1.
+
+\begin{lstlisting}[caption = {Функция \texttt{logBase}}]
+	logBase :: Double -> Double -> Double
+	logBase a b = log b / log a
+\end{lstlisting}
+
+
+
+
+
+Для проверки равенства значений с плавающей точкой была создана функция  \texttt{almostEqual}, проверяющая их примерное равенство с заданной точностью.
+\begin{lstlisting}
+	almostEqual :: Double -> Double -> Double -> Bool
+	almostEqual a b epsilon = abs (a - b) < epsilon
+\end{lstlisting}
+
+Далее были написаны тесты для данной функции в файле \texttt{Spec.hs}:
+
+\begin{enumerate}
+	\item Обратное свойство: \texttt{logBase b (b ** x) == х} для любого положительного \texttt{b} и \texttt{х}.
+	
+	\begin{lstlisting}
+		prop_reverse :: Double -> Double -> Property
+		prop_reverse b x = b > 0 && x > 0 && b /= 1 ==> almostEqual first second 1e-9
+		where 
+		first = logBase b (b ** x)
+		second = x
+	\end{lstlisting}
+	
+	\item Свойство смены основания: \texttt{logBase a b == logBase c b / logBase с а} для любых положительных \texttt{а, b и с}, где \texttt{с} не равно 1.
+	
+	\begin{lstlisting}
+		prop_change :: Double -> Double -> Double -> Property
+		prop_change a b c = a > 0 && b > 0 && c > 0 && c /= 1 && a /= 1 ==> almostEqual first second 1e-9
+		where 
+		first = logBase a b
+		second = logBase c b / logBase c a
+	\end{lstlisting}
+	﻿﻿﻿
+	\item Логарифм единицы: \texttt{logBase b 1 == 0} для любого положительного \texttt{b}.
+	
+	\begin{lstlisting}
+		prop_one :: Double -> Property
+		prop_one b = b > 0 && b /= 1 ==> almostEqual first second 1e-9
+		where 
+		first = logBase b 1
+		second = 0
+	\end{lstlisting}
+\end{enumerate}
+
+
+\subsection{Функция \texttt{matrixMultiply}}
+
+\texttt{matrixMultiply} -- функция, выполняющая умножение двух матриц. Код функции представлена в листинге 2.
+
+\begin{lstlisting}[caption={Функция \texttt{matrixMultiply}}]
+	matrixMultiply :: Num a => [[a]] -> [[a]] -> [[a]]
+	matrixMultiply a b 
+	| colsA /= rowsB = error "Incompatible matrix dimensions"
+	| otherwise = map (\row -> map (sum . zipWith(*) row) (transpose b)) a
+	where 
+	colsA = length (head a)
+	rowsB = length b
+\end{lstlisting}
+
+Она использует функция транспонирующую матрицу -- \texttt{transpose}
+\begin{lstlisting}
+	transpose :: [[a]] -> [[a]]
+	transpose ([]:_) = []
+	transpose x = map head x : transpose (map tail x)
+\end{lstlisting}
+
+
+Была написана функция создающая матрицу заданных размеров -- \texttt{genMatrix}
+
+\begin{lstlisting}
+	genMatrix :: (Arbitrary a) => Int -> Int -> Gen [[a]]
+	genMatrix rows cols = replicateM rows (vectorOf cols arbitrary)
+\end{lstlisting}
+
+	Для проверки матриц, содержащих значения с плавающей точкой, используется функция проверяющая матрицы на примерное соответствие с заданной точностью.
+
+\begin{lstlisting}
+	almostEqualMatrices :: [[Double]] -> [[Double]] -> Double -> Bool
+	almostEqualMatrices left right epsilon =
+	if null left || null right then
+	left == right 
+	else
+	let matrixLeft = concat left
+	matrixRight = concat right
+	in length matrixLeft == length matrixRight &&
+	all (\(l, r) -> almostEqual l r epsilon) (zip matrixLeft matrixRight)
+\end{lstlisting}
+
+Далее были написаны тесты для данной функции в файле \texttt{Spec.hs}:
+
+\begin{enumerate}
+
+	\item ﻿﻿Ассоциативность: \texttt{(А *B) * С == А * (В * С)} для любых матриц \texttt{А, В и С} (при условии, что размеры матриц позволяют это умножение).
+
+	Для генерации корректных матриц, подходящих под условия проверки условия написана функция \texttt{genAssociativeMatrices}
+	\begin{lstlisting}
+		genAssociativeMatrices :: (Arbitrary a) => Gen ([[a]], [[a]], [[a]])
+		genAssociativeMatrices = do
+		m <- chooseInt (1, 5)  -- строки в матрице A
+		n <- chooseInt (1, 5)  -- столбцы в A и строки в B
+		p <- chooseInt (1, 5)  -- столбцы в B и строки в C
+		q <- chooseInt (1, 5)  -- столбцы в C
+		a <- genMatrix m n
+		b <- genMatrix n p
+		c <- genMatrix p q
+		return (a, b, c)
+	\end{lstlisting}
+	Написаны тестирующие функции для проверки свойства перемножения матриц с целыми значениями  и с плавающей точкой
+	
+	\begin{lstlisting}
+		prop_associativity_int :: Property
+		prop_associativity_int =
+		forAll (genAssociativeMatrices :: Gen ([[Int]], [[Int]], [[Int]])) $ \(a, b, c) ->
+		matrixMultiply (matrixMultiply a b) c == matrixMultiply a (matrixMultiply b c)
+		
+		prop_associativity_double :: Property
+		prop_associativity_double =
+		forAll (genAssociativeMatrices :: Gen ([[Double]], [[Double]], [[Double]])) $ \(a, b, c) ->
+		let left  = matrixMultiply (matrixMultiply a b) c
+		right = matrixMultiply a (matrixMultiply b c)
+		in almostEqualMatrices left right 1e-9
+	\end{lstlisting}
+	
+
+	\item ﻿﻿﻿Дистрибутивность:\texttt{А * (B + C) == А*В + А * С} для любых матриц \texttt{А, В и С}.
+	
+	Для генерации корректных матриц, подходящих под условия проверки условия написана функция \texttt{genDistributiveMatrices}
+	\begin{lstlisting}
+	genDistributiveMatrices :: (Arbitrary a) => Gen ([[a]], [[a]], [[a]])
+	genDistributiveMatrices = do
+	m <- chooseInt (1, 5)  -- строки в матрице A
+	n <- chooseInt (1, 5)  -- столбцы в A и строки в В и С
+	q <- chooseInt (1, 5)  -- столбцы в В и столбцы в С
+	a <- genMatrix m n
+	b <- genMatrix n q
+	c <- genMatrix n q
+	return (a, b, c)
+	\end{lstlisting}
+	Написаны тестирующие функции для проверки свойства перемножения матриц с целыми значениями  и с плавающей точкой
+	
+	\begin{lstlisting}
+prop_distributivity_int :: Property
+prop_distributivity_int =
+forAll (genDistributiveMatrices :: Gen ([[Int]], [[Int]], [[Int]])) $ \(a, b, c) ->
+matrixMultiply a ( zipWith(zipWith(+)) b c) == zipWith(zipWith(+)) (matrixMultiply a b) (matrixMultiply a c)
+
+prop_distributivity_double :: Property
+prop_distributivity_double =
+forAll (genDistributiveMatrices :: Gen ([[Double]], [[Double]], [[Double]])) $ \(a, b, c) ->
+let left  = matrixMultiply a ( zipWith(zipWith(+)) b c)
+right = zipWith(zipWith(+)) (matrixMultiply a b) (matrixMultiply a c)
+in almostEqualMatrices left right 1e-9
+
+	\end{lstlisting}
+	
+	﻿﻿﻿
+	﻿﻿﻿\item Умножение на единичную матрицу:\texttt{ А * 1 == А}, где \texttt{I} — единичная матрица соответствующего размера.
+	
+	
+	Для генерации корректных матриц, подходящих под условия проверки условия написаны функции \texttt{iMatrix}  и \texttt{genMultiplicationMatrices}
+	\begin{lstlisting}
+		iMatrix :: Num a => Int -> [[a]]
+		iMatrix n = [[if i == j then 1 else 0 | j <- [1..n]] | i <- [1..n]]
+				
+		genMultiplicationMatrices :: (Arbitrary a, Num a) => Gen ([[a]], [[a]])
+		genMultiplicationMatrices = do
+		m <- chooseInt (1, 5)  -- строки в матрице A
+		n <- chooseInt (1, 5)  -- столбцы в A и строки и столбцы в I 
+		a <- genMatrix m n
+		b <- return (iMatrix n)
+		return (a, b)
+
+	\end{lstlisting}
+	Написаны тестирующие функции для проверки свойства перемножения матриц с целыми значениями  и с плавающей точкой
+	
+	\begin{lstlisting}
+	prop_multiplication_int :: Property
+	prop_multiplication_int =
+	forAll (genMultiplicationMatrices :: Gen ([[Int]], [[Int]])) $ \(a, b) ->
+	matrixMultiply a b == a
+	
+	prop_multiplication_double :: Property
+	prop_multiplication_double =
+	forAll (genMultiplicationMatrices :: Gen ([[Double]], [[Double]])) $ \(a, b) ->
+	let left  = matrixMultiply a b
+	right = a
+	in almostEqualMatrices left right 1e-9
+	\end{lstlisting}
+	
+	
+\end{enumerate}
+
+\subsection{Функция \texttt{main}}
+
+Функция \texttt{main} является точкой входа программы, в которой выполняются тесты для проверки свойств различных функций. В частности, для каждого теста используется функция \texttt{quickCheck}, которая автоматически проверяет заданное свойство на случайных данных.
+
+Функция представлена на листинге 3.
+
+\begin{lstlisting}
+	main :: IO ()
+	main = do
+	putStrLn("Тест prop_reverse:")
+	quickCheck prop_reverse
+	
+	putStrLn("\nТест prop_change:")
+	quickCheck prop_change
+	
+	putStrLn("\nТест prop_one:")
+	quickCheck prop_one
+	
+	putStrLn("\n-----------------------------------")
+	
+	putStrLn("\nТест prop_associativity (with Int):")
+	quickCheck prop_associativity_int 
+	
+	putStrLn("\nТест prop_associativity (with Double):")
+	quickCheck prop_associativity_double
+	
+	putStrLn("\nТест prop_distributivity (with Int):")
+	quickCheck prop_distributivity_int 
+	
+	putStrLn("\nТест prop_distributivity (with Double):")
+	quickCheck prop_distributivity_double
+	
+	putStrLn("\nТест prop_multiplication (with Int):")
+	quickCheck prop_multiplication_int 
+	
+	putStrLn("\nТест prop_multiplication (with Double):")
+	quickCheck prop_multiplication_double
+\end{lstlisting}
+
+\newpage
+\section{Результаты работы программы}
+
+Результаты запуска программы с помощью команды \texttt{stack test} представлены ниже:
+\begin{lstlisting} 
+	Тест prop_reverse:
+	+++ OK, passed 100 tests; 223 discarded.
+	
+	Тест prop_change:
+	+++ OK, passed 100 tests; 423 discarded.
+	
+	Тест prop_one:
+	+++ OK, passed 100 tests; 107 discarded.
+	
+	-----------------------------------
+	
+	Тест prop_associativity (with Int):
+	+++ OK, passed 100 tests.
+	
+	Тест prop_associativity (with Double):
+	+++ OK, passed 100 tests.
+	
+	Тест prop_distributivity (with Int):
+	+++ OK, passed 100 tests.
+	
+	Тест prop_distributivity (with Double):
+	+++ OK, passed 100 tests.
+	
+	Тест prop_multiplication (with Int):
+	+++ OK, passed 100 tests.
+	
+	Тест prop_multiplication (with Double):
+	+++ OK, passed 100 tests.
+\end{lstlisting}
+
+
+
+\newpage
+\section* {Заключение}
+\addcontentsline{toc}{section}{Заключение}
+
+
+В ходе выполнения лабораторной работы были реализованы и протестированы на корректность свойства нескольких функций в языке программирования Haskell. У первой фунции, находящей логарифм числа по заданному основанию: обратное свойство, свойство смены основания,  логарифм единицы. У второй функции, перемножающей матрицы: ассоциативность, дистрибутивность, умножение на единичную матрицу.
+
+В отчете приведены результаты тестирования каждого заданного свойства для обоих функций с использованием библиотеки QuickCheck.
+
+
+
+
+\newpage
+%\section*{Список литературы}
+%\addcontentsline{toc}{section}{Список литературы} % Добавляем раздел в содержание
+
+\begin{thebibliography}{99}
+	
+	\bibitem{kurtz2019}
+	Курт У. \textit{Программируй на Haskell} / пер. с англ. С. Соловьева. — Москва: ДМК Пресс, 2019. — 384 с.
+	
+
+\end{thebibliography}
+
+\addcontentsline{toc}{section}{Список литературы} % Добавляем раздел в содержание
+
+
+
+
+
+
+
+\end{document}
