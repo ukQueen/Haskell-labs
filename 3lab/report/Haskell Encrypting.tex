@@ -725,7 +725,88 @@ Alonzo Church's parents were Mildred Hannah Letterman Parker and Samuel Robbins 
 	\end{minipage}
 \end{figure}
 
+Как можно заметить, чем большее количество битов в каждом байте используется для записи текста,тем сильнее изменяется изображение.\\
+
+
+
+
+
+
+
+Проверим работу функции \texttt{encryptingCoordinates}.
+Запускаем программу, для зашифровки текста выбираем \texttt{<<encrypting text with coordinates>>} и пишем путь к изображению, путь к текстовому файлу, кодовое слово и количество бит, затем выбираем координаты по x и y.
+
+
+Ниже приведены результаты программы шифрования текста в изображение с количеством битов от 1 до 8 и кодовым словом \texttt{<<Haskell>>}, начиная с координат 100 по х и 100 по у.
+
+\begin{figure}[h!]
+	\centering
+	\begin{minipage}{0.3\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{img/Alonzo_Church}
+		\caption{Оригинальное изображение}
+	\end{minipage}
+	\hspace{0.02\textwidth}
+	\begin{minipage}{0.3\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{img/Haskell_1 (1)}
+		\caption{Шифрование текста в 1 бит байта}
+	\end{minipage}
+	\hspace{0.02\textwidth}
+	\begin{minipage}{0.3\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{img/Haskell_2 (1)}
+		\caption{Шифрование текста в 2 бита байта}
+	\end{minipage}
+\end{figure}
+
+
+\begin{figure}[h!]
+	\centering
+	\begin{minipage}{0.3\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{img/Haskell_3 (1)}
+		\caption{Шифрование текста в 3 бита байта}
+	\end{minipage}
+	\hspace{0.02\textwidth}
+	\begin{minipage}{0.3\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{img/Haskell_4 (1)}
+		\caption{Шифрование текста в 4 бита байта}
+	\end{minipage}
+	\hspace{0.02\textwidth}
+	\begin{minipage}{0.3\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{img/Haskell_5 (1)}
+		\caption{Шифрование текста в 5 битов байта}
+	\end{minipage}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h!]
+	\centering
+	\begin{minipage}{0.3\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{img/Haskell_6 (1)}
+		\caption{Шифрование текста в 6 битов байта}
+	\end{minipage}
+	\hspace{0.02\textwidth}
+	\begin{minipage}{0.3\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{img/Haskell_7 (1)}
+		\caption{Шифрование текста в 7 битов байта}
+	\end{minipage}
+	\hspace{0.02\textwidth}
+	\begin{minipage}{0.3\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{img/Haskell_8 (1)}
+		\caption{Шифрование текста в 8 битов байта}
+	\end{minipage}
+\end{figure}
+
 Как можно заметить, чем большее количество битов в каждом байте используется для записи текста,тем сильнее изменяется изображение.
+
 \newpage
 
 \section* {Заключение}
