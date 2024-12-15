@@ -14,8 +14,6 @@ main = do
 menu :: IO()
 menu = do
     putStrLn "Choose the action:"
- --   putStrLn "[1] - encoding text into an image"
- --   putStrLn "[2] - decoding text from the image"
     putStrLn "[1] - encrypting text"
     putStrLn "[2] - encrypting text with coordinates"
     putStrLn "[3] - decrypting text"
@@ -140,10 +138,7 @@ menuEncryptingCoordinates = do
                     putStrLn "Coordinates for encrypting write coordinate y (default 0):"
                     inputY <- getLine
                     let coordY = if null inputY then 0 else read inputY :: Int
-
-                    -- let message = 
-                    --     if ((width - coordX) * (height - y) * 3 * count) == length binaryEncodedText
-
+                    
                     (x, y) <- coordinate (coordX, coordY, width, height, count, (length binaryEncodedText))
 
                     let encryptedText = encryptingCoordinates binaryImage binaryEncodedText count x y width height
