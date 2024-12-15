@@ -26,50 +26,9 @@ prop_one b = b > 0 && b /= 1 ==> almostEqual first second 1e-9
 
 almostEqual :: Double -> Double -> Double -> Bool
 almostEqual a b epsilon = abs (a - b) < epsilon
--- almostEqual a b epsilon = abs (a - b) < epsilon -- || (abs a < epsilon && abs b < epsilon)
-
-
--- allSameLength :: [[a]] -> Bool
--- allSameLength a = all (== length (head a)) (map length a)
-
--- prop_associativity :: (Eq a, Num a) => [[a]] -> [[a]] -> [[a]] -> Property
--- prop_associativity a b c = not (null a) && all (not . null) a && allSameLength a &&
---                            not (null b) && all (not . null) b && allSameLength b &&
---                            not (null c) && all (not . null) c && allSameLength c &&
---                            colsA == rowsB && colsB == rowsC ==> 
---     matrixMultiply (matrixMultiply a b) c == matrixMultiply a (matrixMultiply b c)
---     where 
---         colsA = length (head a)
---         rowsB = length b
---         colsB = length (head b)
---         rowsC = length c
-    
-    
--- prop_distributivity :: (Eq a, Num a) => [[a]] -> [[a]] -> [[a]] -> Property
--- prop_distributivity a b c = not (null a) && all (not . null) a && allSameLength a &&
---                             not (null b) && all (not . null) b && allSameLength b &&
---                             not (null c) && all (not . null) c && allSameLength c &&
---                             rowsB == rowsC && colsB == colsC &&
---                             colsA == rowsB && colsA == rowsC ==> 
---     matrixMultiply a ( zipWith(zipWith(+)) b c) == zipWith(zipWith(+)) (matrixMultiply a b) (matrixMultiply a c) 
---     where 
---         colsA = length (head a)
---         rowsB = length b
---         colsB = length (head b)
---         rowsC = length c
---         colsC = length (head c)
 
 iMatrix :: Num a => Int -> [[a]]
 iMatrix n = [[if i == j then 1 else 0 | j <- [1..n]] | i <- [1..n]]
-
-
--- prop_multiplication :: (Eq a, Num a) => [[a]] -> Property
--- prop_multiplication a = not (null a) && all (not . null) a && allSameLength a ==>
---     matrixMultiply a i == a
---     where
---         colsA = length (head a)
---         i = iMatrix colsA
-
 
 genMatrix :: (Arbitrary a) => Int -> Int -> Gen [[a]]
 genMatrix rows cols = replicateM rows (vectorOf cols arbitrary)
@@ -103,15 +62,6 @@ genMultiplicationMatrices = do
     b <- return (iMatrix n)
     return (a, b)
 
-
--- almostEqualVectors :: Double -> [Double] -> [Double] -> Bool
--- almostEqualVectors epsilon v1 v2 =
---     length v1 == length v2 && all (uncurry (almostEqual epsilon)) (zip v1 v2)
-
-
--- almostEqualMatrices :: [[Double]] -> [[Double]] -> Double -> Bool
--- almostEqualMatrices m1 m2 epsilon =
---     length m1 == length m2 && all (uncurry (almostEqualVectors epsilon)) (zip m1 m2)
 
 
 prop_associativity_int :: Property
@@ -178,6 +128,17 @@ main = do
 
     putStrLn("\n-----------------------------------")
 
+    putStrLn("Тест prop_reverse:")
+    quickCheckWith stdArgs {maxSuccess = 1000}  prop_reverse
+
+    putStrLn("\nТест prop_change:")
+    quickCheckWith stdArgs {maxSuccess = 1000}  prop_change
+
+    putStrLn("\nТест prop_one:")
+    quickCheckWith stdArgs {maxSuccess = 1000}  prop_one
+
+    putStrLn("\n-----------------------------------")
+
     putStrLn("\nТест prop_associativity (with Int):")
     quickCheck prop_associativity_int 
 
@@ -189,12 +150,6 @@ main = do
 
     putStrLn("\nТест prop_distributivity (with Double):")
     quickCheck prop_distributivity_double
-
-    -- putStrLn("\nТест prop_distributivity (with Int):")
-    -- quickCheck (prop_distributivity :: [[Int]] -> [[Int]] -> [[Int]] -> Property)
-
-    -- putStrLn("\nТест prop_distributivity (with Double):")
-    -- quickCheck (prop_distributivity :: [[Double]] -> [[Double]] -> [[Double]] -> Property)
 
     putStrLn("\nТест prop_multiplication (with Int):")
     quickCheck prop_multiplication_int 
