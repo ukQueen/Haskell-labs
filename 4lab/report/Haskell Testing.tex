@@ -570,8 +570,58 @@ in almostEqualMatrices left right 1e-9
 	+++ OK, passed 100 tests.
 \end{lstlisting}
 
+Для того чтобы сломать тесты необходимо изменить функцию \texttt{logBase} 
 
+\begin{lstlisting}
+	logBase :: Double -> Double -> Double
+	logBase a b = b / log a
+\end{lstlisting}
 
+Ниже представлены ошибки при выполнении тестов
+
+\begin{lstlisting}
+Тест prop_reverse:
+*** Failed! Falsified (after 1 test and 6 shrinks):    
+0.1
+0.1
+
+Тест prop_change:
+*** Failed! Falsified (after 1 test and 9 shrinks):    
+1.0e-2
+0.1
+0.1
+
+Тест prop_one:
+*** Failed! Falsified (after 1 test and 4 shrinks):
+1.0e-2
+\end{lstlisting}
+
+При тестировании функции по умолчанию используется 100 тестов, чтобы увеличить количестов до 1000, необходимо использовать \lstinline| quickCheckWith stdArgs {maxSuccess = 1000}|
+
+Для проверки свойств функции \texttt{logBase} используем 1000 тестов:
+\begin{lstlisting}
+	putStrLn("Тест prop_reverse:")
+	quickCheckWith stdArgs {maxSuccess = 1000}  prop_reverse
+	
+	putStrLn("\nТест prop_change:")
+	quickCheckWith stdArgs {maxSuccess = 1000}  prop_change
+	
+	putStrLn("\nТест prop_one:")
+	quickCheckWith stdArgs {maxSuccess = 1000}  prop_one
+	
+\end{lstlisting}
+
+Результат проведения 1000 тестов над свойствами функции \texttt{logBase}
+\begin{lstlisting}
+	Тест prop_reverse:
+	+++ OK, passed 1000 tests; 2167 discarded.
+	
+	Тест prop_change:
+	+++ OK, passed 1000 tests; 4507 discarded.
+	
+	Тест prop_one:
+	+++ OK, passed 1000 tests; 809 discarded.
+\end{lstlisting}
 \newpage
 \section* {Заключение}
 \addcontentsline{toc}{section}{Заключение}
