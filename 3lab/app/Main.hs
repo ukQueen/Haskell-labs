@@ -21,7 +21,7 @@ menu = do
     putStrLn "[3] - decrypting text"
     putStrLn "[0] - Bye!"
     input <- getLine
-    if null input  -- Проверка на пустой ввод
+    if null input  
         then do
             putStrLn "You must choose a valid option. Please try again."
             menu
@@ -165,7 +165,7 @@ coordinate (x, y, width, height, count, size) =
                 then 
                     return (x, y)
                 else do
-                    putStrLn "invailed coordinates, counts of the bits in text don't match. Try again"
+                    putStrLn "The text doesn't fit into the image. Try again"
                     putStrLn "Coordinates for encrypting write coordinate x (default 0):"
                     inputX <- getLine
                     let coordX = if null inputX then 0 else read inputX :: Int
