@@ -76,10 +76,8 @@ splitText =
 
 menuVocabulary :: IO()
 menuVocabulary = 
-    putStrLn "write path to .txt file (default \"files\\he Garnet Bracelet.txt\")" >>
+    putStrLn "write path to .txt file (default \"files\\The Garnet Bracelet.txt\")" >>
     getLine >>= \input ->
-        -- let fileName = if null input then "files\\Centences.txt" else input :: String
-      --  let fileName = if null input then "files\\TestFile.txt" else input :: String
         let fileName = if null input then "files\\The Garnet Bracelet.txt" else input :: String
         in (try (readFile fileName) :: IO (Either IOException String)) >>= \openning ->
             case openning of
@@ -162,24 +160,34 @@ handleGeneration vocab1 vocab2 phrase count
 generatingMessages :: Int -> String -> Map.Map String [String] -> Map.Map String [String] -> IO ()
 generatingMessages 0 _ _ _ = return ()
 generatingMessages count phrase map1 map2 =
-    newStdGen >>= \gen ->
+    newStdGen >>= \gen -> 
         let botNumber = if count `mod` 2 == 0 then "1 bot" else "2 bot"
+            genWords = generatePhrase map1 phrase gen 10 20
+            words = phrase : genWords
             currentMap = if count `mod` 2 == 0 then map1 else map2
-            words =  generatePhrase currentMap phrase gen 10 20
         in case getLastValidWord words currentMap of
-            Nothing -> do
-                putStrLn $ botNumber ++ " : Can't find a valid phrase in the vocabulary."
+            Nothing -> 
+                putStrLn (botNumber ++ " : Can't find a valid phrase in the vocabulary." )>>
                 generatingMessages (count - 1) phrase map1 map2
-            Just lastWord -> do
-                putStrLn $ botNumber ++ " : "  ++ phrase ++ " " ++ unwords words
+            Just lastWord -> 
+                putStrLn ( botNumber ++ " : "   ++ unwords  words) >>
                 generatingMessages (count - 1) lastWord map1 map2
+
+
 
 getLastValidWord :: [String] -> Map.Map String [String] -> Maybe String
 getLastValidWord [] _ = Nothing
-getLastValidWord (x:xs) vocab
-    | Map.member x vocab = Just x
-    | otherwise = getLastValidWord xs vocab
-
+getLastValidWord words vocab =
+    let reverseWords = reverse words
+    in func reverseWords
+    where
+        func :: [String] -> Maybe String
+        func [] = Nothing
+        func (x:xs) =
+            case Map.lookup x vocab of 
+                Just [] -> func xs
+                Just _ -> Just x
+                Nothing -> func xs
 
 
 

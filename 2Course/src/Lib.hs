@@ -126,14 +126,21 @@ addItems (x:xs) values map =
         Nothing -> addItems xs values (addItem x values map)
 
 
+-- addValue :: String -> String -> Map.Map String [String] -> Map.Map String [String]
+-- addValue key value map = 
+--     (case Map.lookup key map of
+--         Just values -> 
+--             if value `elem` values then  
+--                 Map.insert key values map
+--             else 
+--                 Map.insert key (value:values) map
+--         Nothing -> Map.insert key [value] map)
+
 addValue :: String -> String -> Map.Map String [String] -> Map.Map String [String]
 addValue key value map = 
     (case Map.lookup key map of
         Just values -> 
-            if value `elem` values then  
-                Map.insert key values map
-            else 
-                Map.insert key (value:values) map
+            Map.insert key (value:values) map
         Nothing -> Map.insert key [value] map)
 
 concatMaps :: Map.Map String [String] -> Map.Map String [String] -> Map.Map String [String]
@@ -144,7 +151,7 @@ concatMaps map1 map2 =
         func (x:xs) map = 
             case (Map.lookup x map1, Map.lookup x map2) of
                 (Just values1, Just values2) -> 
-                    let combinedValues = nub (values1 ++ values2)
+                    let combinedValues =  (values1 ++ values2)
                     in func xs (Map.insert x combinedValues map)
                 (Just values1, Nothing) -> 
                     func xs (Map.insert x values1 map)
@@ -154,7 +161,16 @@ concatMaps map1 map2 =
                     func xs map
  
 
-
+exampleMap1 :: Map.Map String [String]
+exampleMap1 = Map.fromList [
+    ("fruit", ["apple", "banana"]),
+    ("vegetable", ["carrot", "lettuce"])
+    ]
+exampleMap2 :: Map.Map String [String]
+exampleMap2 = Map.fromList [
+    ("fruit", ["apple", "banana"]),
+    ("vegetable", ["carrot", "lettuce"])
+    ]
 
 nGramm :: String -> Int -> Maybe (Map.Map String [String])
 nGramm text n = 
@@ -164,7 +180,7 @@ nGramm text n =
             func [] map = map
             func (x:xs) map =  -- предложения
                 let words = splitWords x
-                in func xs ( concatMaps map (func' words map))
+                in func xs (func' words map)
             func' [] map = map
             func' (x':xs') map= -- слова
                 let keys = getKeys n (x':xs')
@@ -221,9 +237,18 @@ createVocabulary text =
 writeVocabulary :: Map.Map String [String] -> String
 writeVocabulary map = func (Map.toList map) where
     func [] = ""
-    func ((key, value):xs') = key ++ " : "  ++ ushow value ++ "\n" ++ func xs'
+    func ((key, value):xs') = key ++ " : "  ++ ushow (createPairs value) ++ "\n" ++ func xs'
 
 
+createPairs :: [String] -> [(String, Int)]  
+createPairs [] = []
+createPairs words = 
+    let uniqueWords = nub words
+    in func uniqueWords words where
+        func [] _ = []
+        func (x:xs) words = 
+            let count = length $ filter (== x) words
+            in (x, count) : func xs words
 
 
 generatePhrase :: Map.Map String [String] -> String -> StdGen -> Int -> Int -> [String]
@@ -237,7 +262,7 @@ generatePhrase dict start initGenState a b=
             | otherwise =
                 case Map.lookup key dict of
                     Nothing -> acc
-                    --Just [] -> acc
+                    Just [] -> acc
                     Just vals ->
                         let (i, newGenState) = randomR (0, length vals - 1) genState
                             next = vals !! i
