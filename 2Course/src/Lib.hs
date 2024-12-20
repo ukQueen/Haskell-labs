@@ -126,16 +126,6 @@ addItems (x:xs) values map =
         Nothing -> addItems xs values (addItem x values map)
 
 
--- addValue :: String -> String -> Map.Map String [String] -> Map.Map String [String]
--- addValue key value map = 
---     (case Map.lookup key map of
---         Just values -> 
---             if value `elem` values then  
---                 Map.insert key values map
---             else 
---                 Map.insert key (value:values) map
---         Nothing -> Map.insert key [value] map)
-
 addValue :: String -> String -> Map.Map String [String] -> Map.Map String [String]
 addValue key value map = 
     (case Map.lookup key map of
