@@ -1,7 +1,10 @@
-{-# LANGUAGE OverloadedStrings #-}
-module Lib (
+{-# LANGUAGE FlexibleContexts #-}
+module Lib
+    ( getSentencens, createOneString, createVocabulary, writeVocabulary, generatePhrase
     ) where
 
+import Data.Char (isLower, isDigit, digitToInt)
+import Control.Applicative
 import qualified Data.Map as Map
 import Data.List (nub)
 import UnescapingPrint (ushow)
